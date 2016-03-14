@@ -1,3 +1,7 @@
+NOTE: This branch is based off of 1.01_hello_world, NOT sunshine_master!
+This branch will be used to track my progress throughout the Udacity Android Developer course.
+
+
 Sunshine
 ========
 
