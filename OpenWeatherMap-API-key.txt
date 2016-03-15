@@ -1,0 +1,9 @@
+Note that free accounts are limited to one request per second
+
+API key:
+
+473d04c5c8aa6d960b814744bf0b3ac7
+
+sample API call to get weekly forecast for 43443 (luckey, oh):
+
+http://api.openweathermap.org/data/2.5/forecast/daily?q=43443&mode=JSON&units=metric&cnt=7&APPID=473d04c5c8aa6d960b814744bf0b3ac7
