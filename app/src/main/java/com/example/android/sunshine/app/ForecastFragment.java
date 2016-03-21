@@ -1,5 +1,7 @@
 package com.example.android.sunshine.app;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,15 +76,8 @@ public class ForecastFragment extends Fragment {
         //required to return rootView at the end of this method
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        //mock weather forecast data to use until we implement the networking code
-        ArrayList<String> forecastItems = new ArrayList<String>();
-        forecastItems.add("Today-Sunny-88/63");
-        forecastItems.add("Tomorrow-Foggy-72/51");
-        forecastItems.add("Weds-Cloudy-72/64");
-        forecastItems.add("Thurs-Sunny-88/63");
-        forecastItems.add("Fri-Sunny-88/63");
-        forecastItems.add("Sat-Sunny-88/63");
-
+        //empty arrayList to hold daily weather forecasts
+        final ArrayList<String> forecastItems = new ArrayList<String>();
 
         //bind the mock weather forecast data above to the list view control
         forecastAdapter = new ArrayAdapter<String>(
@@ -91,6 +88,16 @@ public class ForecastFragment extends Fragment {
         //bind the mock weather forecast data above to the list view control
         ListView forecastListView = (ListView) rootView.findViewById(R.id.listview_forecast);
         forecastListView.setAdapter(forecastAdapter);
+        //display the DetailActivity when the user clicks on a weather item in our ListView
+        forecastListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getActivity(), forecastAdapter.getItem(i), Toast.LENGTH_SHORT).show();
+                Intent weatherDetailIntent = new Intent(getActivity(), DetailActivity.class)
+                        .putExtra(Intent.EXTRA_TEXT, forecastAdapter.getItem(i));
+                startActivity(weatherDetailIntent);
+            }
+        });
 
         //android needs every fragment.onCreateView(...) method to return inflated XML
         return rootView;
@@ -102,10 +109,13 @@ public class ForecastFragment extends Fragment {
         private static final int forecastDays = 7;
 
         @Override
-        protected void onPostExecute(String[] strings) {
-            super.onPostExecute(strings);
+        protected void onPostExecute(String[] finalForecast) {
+            super.onPostExecute(finalForecast);
             forecastAdapter.clear();
-            for (String dayForecast : strings) {
+            for (String dayForecast : finalForecast) {
+                //note that each time we call forecastAdapter.add,
+                // the adapter automatically runs .notifyDataSetChanged() on itself
+                //also note that if we were targeting android API 11 or higher, we could use .addAll instead
                 forecastAdapter.add(dayForecast);
             }
         }
