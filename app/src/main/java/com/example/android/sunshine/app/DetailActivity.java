@@ -33,6 +33,8 @@ public class DetailActivity extends ActionBarActivity {
         //on the home/up button as long as a parent activity is specified in AndroidManifest.xml
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
             return true;
         }
         //defaults to false

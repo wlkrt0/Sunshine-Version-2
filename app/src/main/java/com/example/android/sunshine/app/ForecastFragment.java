@@ -2,9 +2,11 @@ package com.example.android.sunshine.app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +40,7 @@ import java.util.GregorianCalendar;
  */
 public class ForecastFragment extends Fragment {
 
+    private static final String LOG_TAG = SettingsActivity.class.getSimpleName();
     private ArrayAdapter<String> forecastAdapter;
 
     public ForecastFragment() {
@@ -64,7 +67,10 @@ public class ForecastFragment extends Fragment {
             //perform a refresh of the weather data
             //call the networking code to get real weather data
             FetchWeatherTask weatherWorker = new FetchWeatherTask();
-            weatherWorker.execute("43443");
+            //get the zip code from the settings/preferences
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
+            String zip = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+            weatherWorker.execute(zip);
             return true;
         }
         return super.onOptionsItemSelected(item); //defaults to false per javadoc, showing that we did not handle the menu item selection
@@ -92,7 +98,7 @@ public class ForecastFragment extends Fragment {
         forecastListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), forecastAdapter.getItem(i), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), forecastAdapter.getItem(i), Toast.LENGTH_SHORT).show();
                 Intent weatherDetailIntent = new Intent(getActivity(), DetailActivity.class)
                         .putExtra(Intent.EXTRA_TEXT, forecastAdapter.getItem(i));
                 startActivity(weatherDetailIntent);
