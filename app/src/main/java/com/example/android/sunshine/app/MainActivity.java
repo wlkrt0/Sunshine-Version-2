@@ -1,7 +1,10 @@
 package com.example.android.sunshine.app;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -39,9 +42,24 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            //TODO show the settings page
+            //show the settings page
             Log.v(LOG_TAG, "Correctly identified the Settings click in MainActivity.java");
             startActivity(new Intent(this, SettingsActivity.class));
+            return true;
+        } else if (id == R.id.action_location) {
+            //check to make sure the user's device can respond to implicit map intents
+            //then send an implicit intent to the user's map application
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW);
+            //get the user's location setting to use as the basis for the map query
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+            //build the Uri which contains the map query with the user's location setting
+            Uri mapUri = Uri.parse("geo:0,0?q=" + location);
+            mapIntent.setData(mapUri);
+            //check to make sure the user's device can respond to implicit map intents
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent);
+            }
             return true;
         }
 

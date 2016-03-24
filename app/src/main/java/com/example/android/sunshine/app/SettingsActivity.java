@@ -25,6 +25,7 @@ public class SettingsActivity extends PreferenceActivity implements
         //for all preferences, attach an OnPreferenceChangeListener to update UI when prefs change
         //findPreference is deprecated but is still best practice when targeting gingerbread per udacity
         bindPrefSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+        bindPrefSummaryToValue(findPreference("units"));
     }
 
     //Attach a listener so that summary is always updated with the preference value.
