@@ -1,0 +1,75 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\froman\fcharset0 Times New Roman;}{\f1\fswiss\fcharset0 Courier New;}{\f2\fnil\fcharset0 Calibri;}{\f3\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.10586}\viewkind4\uc1 
+\pard\keepn\sb100\sa100\b\f0\fs36 Review Material for Lesson 2\par
+
+\pard\sb100\sa100\b0\fs24 Congratulations! You\rquote ve got two lessons under your belt and Sunshine is now connected to the cloud. Below is a list of the key concepts covered, along with a description of each concept.\par
+
+\pard\keepn\sb100\sa100\b\fs28 New Concepts\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100\b0\fs24 HttpURLConnection \par
+{\pntext\f3\'B7\tab}Logcat \par
+{\pntext\f3\'B7\tab}MainThread vs. Background Thread \par
+{\pntext\f3\'B7\tab}AsyncTask \par
+{\pntext\f3\'B7\tab}Adding Menu Buttons \par
+{\pntext\f3\'B7\tab}values/strings.xml \par
+{\pntext\f3\'B7\tab}Permissions \par
+{\pntext\f3\'B7\tab}JSON Parsing\par
+
+\pard\sb100\sa100\b HttpURLConnect\b0\par
+HttpURLConnect is a Java class used to send and receive data over the web. We use it to grab the JSON data from the {{\field{\*\fldinst{HYPERLINK "http://openweathermap.org/"}}{\fldrslt{\ul\cf1\cf1\ul OpenWeatherMap API}}}}\f0\fs24 . The code to do so is introduced in this {{\field{\*\fldinst{HYPERLINK "https://www.udacity.com/course/viewer"}}{\fldrslt{\ul\cf1\cf1\ul video}}}}\f0\fs24  and {{\field{\*\fldinst{HYPERLINK "https://gist.github.com/anonymous/6b306e1f6a21b3718fa4"}}{\fldrslt{\ul\cf1\cf1\ul gist}}}}\f0\fs24\par
+\b Logcat\b0\par
+Logcat is the program you can use to view your Android device\rquote s logging output. In the course there are three ways to do this:\par
+
+\pard 
+{\pntext\f0 1.\tab}{\*\pn\pnlvlbody\pnf0\pnindent360\pnstart1\pndec{\pntxta.}}
+\fi-360\li720\sb100\sa100 Android Studio has a DDMS window which includes logcat output. Make sure the Android Window is selected. \par
+{\pntext\f0 2.\tab}You can open up a terminal and type \f1\fs20 adb logcat\f0\fs24 . The {{\field{\*\fldinst{HYPERLINK "http://developer.android.com/tools/debugging/debugging-log.html"}}{\fldrslt{\ul\cf1\cf1\ul developer guide}}}}\f0\fs24  has more information on options you can use to filter the output.\par
+{\pntext\f0 3.\tab}You can explicitly open a separate window for Android DDMS and access logcat. \par
+
+\pard\sb100\sa100 Logs come in five flavours, \b Verbose\b0 , \b Debug\b0 , \b Info\b0 , \b Warn\b0  and \b Error\b0 . You can filter the logs by selecting the Log Level (shown in green), which will show you only logs of that level and above. For example, only seeing warning and above would show you Warning and Error logs.\par
+In your code you can write statements which will post log messages to logcat. To do so, you use the Log class followed by v, d, i, w or e method, depending on which log level you want the message to be at. Log.w(\ldblquote ","); for example, would output a Warning level log message. Each method takes two strings, the first is the tag, which is used to identify where the log is coming from. The second parameter is the specific log message.\par
+The convention used in the course for the \b tag\b0  is to create a String constant \f1\fs20 LOG_TAG\f0\fs24  which equals the name of the class the constant is in. You can get the class name programmatically. Here\rquote s an example for the MainActivity:\par
+
+\pard\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 private final String LOG_TAG = MainActivity.class.getSimpleName();\par
+
+\pard\sb100\sa100\b\f0\fs24 MainThread vs. Background Thread\b0\par
+In Android there is a concept of the \b Main Thread\b0  or UI Thread. If you\rquote re not sure what a thread is in computer science, check out this {{\field{\*\fldinst{HYPERLINK "http://en.wikipedia.org/wiki/Thread_%28computing%29"}}{\fldrslt{\ul\cf1\cf1\ul wikipedia article}}}}\f0\fs24 . The main thread is responsible for keeping the UI running smoothly and responding to user input. It can only execute one task at a time. If you start a process on the Main Thread which is very long, such as a complex calculation or loading process, this process will try to complete. While it is completing, though, your UI and responsiveness to user input will hang.\par
+Therefore, whenever you need to start a longer process you should consider using another \ldblquote Background" thread, which doesn\rquote t \ldblquote block" the Main Thread. An easy (but by no means perfect) way to do this is to create a subclass of AsyncTask.\par
+\b AsyncTask\b0\par
+AsyncTask is an easy to use Android class that allows you to do a task on a background thread and thus not disrupt the Main Thread. To use AsyncTask you should subclass it as we\rquote ve done with FetchWeatherTask. There are four important methods to override:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100\f1\fs20 onPreExecute\f0\fs24  - This method is run on the UI before the task starts and is responsible for any setup that needs to be done.\par
+{\pntext\f3\'B7\tab}\f1\fs20 doInBackground\f0\fs24  - This is the code for the actual task you want done off the main thread. It will be run on a background thread and not disrupt the UI.\par
+{\pntext\f3\'B7\tab}\f1\fs20 onProgressUpdate\f0\fs24  - This is a method that is run on the UI thread and is meant for showing the progress of a task, such as animating a loading bar.\par
+{\pntext\f3\'B7\tab}\f1\fs20 onPostExecute\f0\fs24  - This is a method that is run on the UI \b after\b0  the task is finished.\par
+
+\pard\sb100\sa100 Note that when you start an AsyncTask, it is tied to the activity you start it in. When the activity is destroyed (which happens whenever the phone is rotated), the AsyncTask you started will refer to the destroyed activity and not the newly created activity. This is one of the reasons why using AsyncTask for a longer running task is dangerous.\par
+\b Adding menu buttons\b0\par
+So that we could add a temporary Refresh button, we learned how to add menu buttons. Here are the basic steps.\par
+
+\pard 
+{\pntext\f0 1.\tab}{\*\pn\pnlvlbody\pnf0\pnindent360\pnstart1\pndec{\pntxta.}}
+\fi-360\li720\sb100\sa100 Add an xml file in \f1\fs20 res/menu/\f0\fs24  that defines the buttons you are adding, their ordering and any other characteristics.\par
+{\pntext\f0 2.\tab}If the menu buttons are associated with a fragment, make sure to call \f1\fs20 setHasOptionsMenu(true)\f0\fs24  in the fragment's \f1\fs20 onCreate\f0\fs24  method.\par
+{\pntext\f0 3.\tab}Inflate the menu in the \f1\fs20 onCreateOptionsMenu\f0\fs24  with a line \f1\fs20 inflater.inflate(R.menu.forecastfragment, menu);\f0\fs24\par
+{\pntext\f0 4.\tab}In \f1\fs20 onOptionsItemSelected\f0\fs24  you can check which item was selected and react appropriately. In the case of Refresh, this means creating and executing a \f1\fs20 FetchWeatherTask\f0\fs24 .\par
+
+\pard\sb100\sa100\b values/strings.xml\b0\par
+Android has a specific file for all of the strings in your app, stored in \f1\fs20 values/strings.xml\f0\fs24 . Why? Well besides further helping separate content from layout, the strings file also makes it easy to localize applications. You simply create a \f1\fs20 values-language/strings.xml\f0\fs24  files for each locale you want to localize to. For example, if you want to create a Japanese version of your app, you would create a \f1\fs20 values-ja/strings.xml\f0\fs24 . Note, if you put the flag \f1\fs20 translatable="false"\f0\fs24  in your string it means the string need not be translated. This is useful when a string is a proper noun.\par
+\b Permissions\b0\par
+By default, applications in Android are \b sandboxed\b0 . This means they have their own username, run on their own instance of the virtual machine, and manage their own personal and private files and memory. Therefore, to have applications interact with other applications or the phone, you must request permission to do so.\par
+Permissions are declared in the \f1\fs20 AndroidManifest.xml\f0\fs24  and are needed for your app to do things like access the internet, send an SMS or look at the phone\rquote s contacts. When a user downloads your application, they will see all of the permissions you request. In the interest of not seeming suspicious, it\rquote s a good idea to only request the permissions you need.\par
+\b JSON Parsing\b0\par
+Often when you request data from an API this data is returned in a format like JSON. This is the case for Open Weather Map API. Once you have this JSON string, you need to parse it. \par
+If you\rquote re unfamiliar with JSON, take a look at {{\field{\*\fldinst{HYPERLINK "http://www.w3schools.com/json/"}}{\fldrslt{\ul\cf1\cf1\ul this tutorial}}}}\f0\fs24 .\par
+If you\rquote re not sure of the exact structure of the JSON, use a formatter. {{\field{\*\fldinst{HYPERLINK "http://jsonformatter.curiousconcept.com/"}}{\fldrslt{\ul\cf1\cf1\ul Here\rquote s a good one}}}}\f0\fs24  you can use in the browser.\par
+In Android, you can use the \f1\fs20 JSONObject\f0\fs24  class, documented {{\field{\*\fldinst{HYPERLINK "http://developer.android.com/reference/org/json/JSONObject.html"}}{\fldrslt{\ul\cf1\cf1\ul here}}}}\f0\fs24 . To use this class you take your JSON string and create a new object:\par
+
+\pard\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 JSONObject myJson = new JSONObject(myString);\par
+
+\pard\sb100\sa100\f0\fs24 And then you can use various \f1\fs20 get\f0\fs24  methods to extract data, such as \f1\fs20 getJSONArray\f0\fs24  and \f1\fs20 getLong\f0\fs24 .\par
+
+\pard\sa200\sl276\slmult1\f2\fs22\lang9\par
+}
+ 

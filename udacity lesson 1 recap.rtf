@@ -1,0 +1,96 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\froman\fcharset0 Times New Roman;}{\f1\fswiss\fcharset0 Courier New;}{\f2\fnil\fcharset0 Calibri;}{\f3\fnil\fcharset2 Symbol;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Riched20 10.0.10586}\viewkind4\uc1 
+\pard\keepn\sb100\sa100\b\f0\fs36 Review Material for Lesson 1\par
+
+\pard\sb100\sa100\b0\fs24 Congratulations on finishing lesson 1! You\rquote ve come a long way already: you've created your first app, and have learned many of the essential Android concepts. We studied the tools used to create apps, including Android Studio, the Android SDK, testing devices (both real and emulated), and the Gradle build system. We also looked at some of the core classes that make up Android apps, including activities, fragments, layouts, views, list views, and adapters.\par
+
+\pard\keepn\sb100\sa100\b\fs28 New Concepts\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100\b0\fs24 Android Studio \par
+{\pntext\f3\'B7\tab}SDK - Target and Minimum \par
+{\pntext\f3\'B7\tab}Emulators vs. Real Devices \par
+{\pntext\f3\'B7\tab}Gradle \par
+{\pntext\f3\'B7\tab}Application \par
+{\pntext\f3\'B7\tab}Activity \par
+{\pntext\f3\'B7\tab}Fragment \par
+{\pntext\f3\'B7\tab}Views and ViewGroups \par
+{\pntext\f3\'B7\tab}Views and XML layouts \par
+{\pntext\f3\'B7\tab}ListView \par
+{\pntext\f3\'B7\tab}Adapter\par
+
+\pard\sb100\sa100\b Android Studio\b0\par
+Android Studio is the IDE that we\rquote re using for the course. When you start a new app, you will create a \b Project\b0  in Android Studio. Every project will contain one or more \b modules\b0  for each logical part of your application. To ensure that your module name is unique, the module naming convention is to use the reverse of your internet domain name.\par
+Android Studio organizes your project in a specific way, described {{\field{\*\fldinst{HYPERLINK "https://developer.android.com/tools/projects/index.html"}}{\fldrslt{\ul\cf1\cf1\ul here.}}}}\f0\fs24\par
+The following is a review of some of the important buttons in Android Studio.\par
+&\par
+
+\pard 
+{\pntext\f0 1.\tab}{\*\pn\pnlvlbody\pnf0\pnindent360\pnstart1\pndec{\pntxta.}}
+\fi-360\li720\sb100\sa100 This determines how the project structure will be shown. In the course we use the \b Project\b0  view but the \b Android\b0  view is also a handy way to organize your files.\par
+{\pntext\f0 2.\tab}This is the \b run\b0  button. It will save and compile the current state of your project as an apk and then launch it on either an Android phone connected to your computer or an emulator.\par
+{\pntext\f0 3.\tab}This is the \b debug\b0  button. It runs your code as above, but attaches the Android debugger, which allows you to do things like stop at breakpoints and step through the code.\par
+{\pntext\f0 4.\tab}This is the \b AVD manager\b0  button. It opens the Android Virtual Device manager, which allows you to create, delete, run and edit Android emulators.\par
+{\pntext\f0 5.\tab}This is the \b SDK Manager\b0  button. The SDK Manager allows you to download new SDKs for different Android APIs.\par
+{\pntext\f0 6.\tab}This is the \b Android Device Monitor\b0  button. The Android Device Monitor shows you a lot of information about your emulated and attached devices. For example, you can do basic performance analysis and see what\rquote s on the file system.\par
+
+\pard\sb100\sa100\b SDK - Target and Minimum\b0\par
+When you create a new project, you need to define a minimum SDK, or Software Development Kit. The SDK is a set of tools that you download that allows you to compile and create Android Projects. SDKs match API levels, when a new API level is released, a new SDK is released to make projects for that level. A current SDK is automatically downloaded when you install Android Studio. \par
+The minimum SDK is the minimum Android API level that the application is meant to support. In our case we are supporting API level 10, which includes all devices running Gingerbread and beyond. This will support 99% of devices on the market.\par
+The target SDK, which is automatically defined for you, signifies the SDK that you use to compile and test with. It should be the most current SDK.\par
+\b Emulators vs. Real Devices\b0\par
+When you download Android Studio 1.0 it comes with an emulated phone. You can start this emulated phone on your computer by simply running your app and choosing the \ldblquote Launch emulator" option and picking your emulator:\par
+&\par
+Note, sometimes emulated phones hang with a black screen or loading screen like this one:\par
+&\par
+If this happens to you, check out your error messages in Android Studio. A common message is:\par
+
+\pard\tx959\tx1918\tx2877\tx3836\tx4795\tx5754\tx6713\tx7672\tx8631\f1\fs20 /Android/sdk/tools/emulator -avd _Nexus_5_API_21_x86 -netspeed full -netdelay none\par
+emulator: The memory needed by this VM exceeds the driver limit.\par
+HAX is not working and emulator runs in emulation mode\par
+
+\pard\sb100\sa100\f0\fs24 This means that your machine is not fast enough to run the default emulator. Not to worry; follow {{\field{\*\fldinst{HYPERLINK "https://www.udacity.com/course/viewer"}}{\fldrslt{\ul\cf1\cf1\ul Katherine\rquote s instructions}}}}\f0\fs24  to make a new emulator and reduce the RAM that the emulator uses. Here is the configuration screen where you can do this:\par
+&\par
+Emulators are great, but they can be a bit slow. If at all possible, we suggest you use a real device. You\rquote ll need to follow the steps in this {{\field{\*\fldinst{HYPERLINK "https://www.udacity.com/course/viewer"}}{\fldrslt{\ul\cf1\cf1\ul video}}}}\f0\fs24  to unlock developer mode, but ultimately the performance will be much faster and experience much smoother.\par
+If you\rquote re set on using the emulator, consider installing Genymotion. The steps to do so can be found {{\field{\*\fldinst{HYPERLINK "https://www.genymotion.com/"}}{\fldrslt{\ul\cf1\cf1\ul here}}}}\f0\fs24 .\par
+\b Gradle\b0\par
+Gradle is the build system that packages up and compiles Android Apps. Android Studio automatically generates Gradle files for your application, including the \f1\fs20 build.gradle\f0\fs24  for your app and module and the \f1\fs20 settings.gradle\f0\fs24  for your app. You do not need to create these files. You can run Gradle from a terminal (described in {{\field{\*\fldinst{HYPERLINK "https://www.udacity.com/course/viewer"}}{\fldrslt{\ul\cf1\cf1\ul this}}}}\f0\fs24  and {{\field{\*\fldinst{HYPERLINK "https://www.udacity.com/course/viewer"}}{\fldrslt{\ul\cf1\cf1\ul this}}}}\f0\fs24  video), but you can also use the \i run\i0  button which will automatically run the Gradle scripts in your project. For more information on the build process that Android Studio and Gradle are automatically handling for you, checkout the {{\field{\*\fldinst{HYPERLINK "https://developer.android.com/sdk/installing/studio-build.html"}}{\fldrslt{\ul\cf1\cf1\ul developer guide}}}}\f0\fs24 .\par
+\b TIP\b0 : if your project is having Gradle issues, sometimes clicking the \b Sync Project with Gradle Files\b0  button helps. Running clean and rebuilding your project can also help resolve errors.\par
+&\par
+\b Application\b0\par
+You probably know what an Android application, like Gmail or Keep, looks like as a user, but what does an application look like from a developer\rquote s perspective? An application is a loose collection of classes for the user to interact with. The UI components are organized into Activities, which we learned about in this lesson. The behind-the-scenes work is handled by other Android classes including:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100 Content Providers (Lesson 4) - Manage app data. \par
+{\pntext\f3\'B7\tab}Services (Lesson 6) - Run background tasks with no UI, such as downloading information or playing music. \par
+{\pntext\f3\'B7\tab}Broadcast Receivers (Lesson 6) - Listen for and respond to system announcements, such as the screen being turned on or losing network connectivity.\par
+
+\pard\sb100\sa100\b Activity\b0\par
+Activities are the components of Android apps that the user interacts with and a core class in Android. When you create an app with Android Studio, it will create an initial activity class that will start when the app is launched. The default name of this activity is \f1\fs20 MainActivity\f0\fs24 . An activity is a single, focused thing that the user can do and roughly maps to one screen of the app.\par
+\b Fragment\b0\par
+Activities can contain one or more Fragments. Fragments are modular sections of an activity, usually meant to display UI. Two activities can have the same fragment and fragments can be added or removed from an Activity. An Activity with blank Fragment is what we created for Sunshine. The \f1\fs20 PlaceholderFragment\f0\fs24  is automatically generated as an inner class of the activity, but fragments don\rquote t \i need\i0  to be inner classes.\par
+\b Views and ViewGroups\b0\par
+A view is the basic building block for user interface components. A fragment might combine multiple views to define its layout. Buttons, text and other widgets are subclasses of views and can be combined in ViewGroups to create larger layouts. Common ViewGroups include:\par
+
+\pard{\pntext\f3\'B7\tab}{\*\pn\pnlvlblt\pnf3\pnindent360{\pntxtb\'B7}}\fi-360\li720\sb100\sa100\f1\fs20 LinearLayout\f0\fs24  - For horizontal or vertical collections of elements. \par
+{\pntext\f3\'B7\tab}\f1\fs20 RelativeLayout\f0\fs24  - For laying out elements relative to one another. \par
+{\pntext\f3\'B7\tab}\f1\fs20 FrameLayout\f0\fs24  - For a single view.\par
+
+\pard\sb100\sa100 Since views nest within other views, this creates a tree like structure of views for every layout.\par
+\b Views and XML Layouts\b0\par
+To describe our user interface, we describe layouts using XML. The layout defines a collection of views, view groups and the relationships between them. Our layouts are stored in the app/src/main/res/layout directory. To turn an xml layout into java view objects, we need to \b inflate\b0  the layout. After the layout is inflated, we need to associate it with an Activity or Fragment. This process of inflating and associating is a little different depending on whether it\rquote s a layout for an Activity or Fragment.\par
+\i For an Activity\i0\par
+We inflate the layout and associate it with the Activity by calling the \f1\fs20 setContentView\f0\fs24  method in \f1\fs20 onCreate\f0\fs24  in our Activity:\par
+\f1\fs20 setContentView(R.layout.activity_main);\f0\fs24\par
+\i For a Fragment\i0\par
+In our Fragment classes we inflate the layout in the \f1\fs20 onCreateView\f0\fs24  method, which includes a \f1\fs20 LayoutInflater\f0\fs24  as a parameter:\par
+\f1\fs20 View rootView = inflater.inflate(R.layout.fragment_main, container, false);\f0\fs24\par
+The root view, or view element which contains all the other views, is returned by the \f1\fs20 inflate\f0\fs24  method of the \f1\fs20 LayoutInflater\f0\fs24 . We then should return this rootView for the \f1\fs20 onCreateView\f0\fs24 .\par
+\b ListView\b0\par
+ListView is a subclass of View optimized for displaying lists by displaying many copies of a single layout. We are going to use a ListView to display our weather information in Sunshine. Each row of weather information is defined by a layout called \f1\fs20 list_item_forecast.xml\f0\fs24 . The list view contains multiple copies of list_item_forecast.xml, one for each row of weather data.\par
+An \f1\fs20 Adapter\f0\fs24  is used to populate a ListView.\par
+\b Adapter\b0\par
+Adapters translate a data source into views for a ListView to display. In our case we used an ArrayAdapter to take an array as our data source and populate our ListView with the data from the array. Here\rquote s the corresponding {{\field{\*\fldinst{HYPERLINK "https://www.google.com/url?q=https%3A%2F%2Fwww.udacity.com%2Fcourse%2Fviewer%23!%2Fc-ud853%2Fl-1395568821%2Fm-1604029757&sa=D&sntz=1&usg=AFQjCNGPavCWWbluKsc2kZhSjlwtqiumCw"}}{\fldrslt{\ul\cf1\cf1\ul video}}}}\f0\fs24  about how this process works.\par
+
+\pard\sa200\sl276\slmult1\f2\fs22\lang9\par
+}
+ 
