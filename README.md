@@ -3,6 +3,8 @@ Sunshine
 
 **NOTE: This branch is based off of 1.01_hello_world, NOT sunshine_master!**
 This branch will be used to track my progress throughout the Udacity Android Developer course.
+**NOTE: This branch contains all progress from the beginning of Lesson 1 to the end of Lesson 4A**
+Lesson 4B and up starts on a new branch.
 
 Sunshine is the companion Android app for the Udacity course [Developing Android Apps: Android Fundamentals](https://www.udacity.com/course/ud853).
 
